@@ -33,8 +33,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Tab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.outDbExcel = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.dgv1 = new System.Windows.Forms.DataGridView();
+            this.outDbExcel = new System.Windows.Forms.Button();
             this.ColTxt = new System.Windows.Forms.TextBox();
             this.TblTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,6 +49,7 @@
             this.fd = new System.Windows.Forms.Button();
             this.Tab.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv2)).BeginInit();
@@ -57,18 +59,19 @@
             //
             this.Tab.Controls.Add(this.tabPage1);
             this.Tab.Controls.Add(this.tabPage2);
+            this.Tab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tab.Font = new System.Drawing.Font("Meiryo UI", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Tab.Location = new System.Drawing.Point(4, 13);
+            this.Tab.Location = new System.Drawing.Point(0, 0);
             this.Tab.Name = "Tab";
             this.Tab.SelectedIndex = 0;
-            this.Tab.Size = new System.Drawing.Size(1380, 851);
+            this.Tab.Size = new System.Drawing.Size(1381, 861);
             this.Tab.TabIndex = 0;
             this.Tab.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             //
             // tabPage1
             //
+            this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.outDbExcel);
-            this.tabPage1.Controls.Add(this.dgv1);
             this.tabPage1.Controls.Add(this.ColTxt);
             this.tabPage1.Controls.Add(this.TblTxt);
             this.tabPage1.Controls.Add(this.label3);
@@ -77,22 +80,18 @@
             this.tabPage1.Location = new System.Drawing.Point(8, 51);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1364, 792);
+            this.tabPage1.Size = new System.Drawing.Size(1365, 802);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "DB";
             this.tabPage1.UseVisualStyleBackColor = true;
             //
-            // outDbExcel
+            // panel1
             //
-            this.outDbExcel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.outDbExcel.Location = new System.Drawing.Point(23, 81);
-            this.outDbExcel.Name = "outDbExcel";
-            this.outDbExcel.Size = new System.Drawing.Size(171, 45);
-            this.outDbExcel.TabIndex = 5;
-            this.outDbExcel.Text = "Excel出力";
-            this.outDbExcel.UseVisualStyleBackColor = true;
-            this.outDbExcel.Visible = false;
-            this.outDbExcel.Click += new System.EventHandler(this.outDbExcel_Click);
+            this.panel1.Controls.Add(this.dgv1);
+            this.panel1.Location = new System.Drawing.Point(23, 132);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1318, 648);
+            this.panel1.TabIndex = 7;
             //
             // dgv1
             //
@@ -111,16 +110,29 @@
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv1.EnableHeadersVisualStyles = false;
-            this.dgv1.Location = new System.Drawing.Point(20, 132);
+            this.dgv1.Location = new System.Drawing.Point(0, 0);
             this.dgv1.Name = "dgv1";
             this.dgv1.ReadOnly = true;
             this.dgv1.RowHeadersVisible = false;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.dgv1.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgv1.RowTemplate.Height = 33;
-            this.dgv1.Size = new System.Drawing.Size(1318, 656);
+            this.dgv1.Size = new System.Drawing.Size(1318, 648);
             this.dgv1.TabIndex = 6;
+            //
+            // outDbExcel
+            //
+            this.outDbExcel.Enabled = false;
+            this.outDbExcel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.outDbExcel.Location = new System.Drawing.Point(23, 81);
+            this.outDbExcel.Name = "outDbExcel";
+            this.outDbExcel.Size = new System.Drawing.Size(171, 45);
+            this.outDbExcel.TabIndex = 5;
+            this.outDbExcel.Text = "Excel出力";
+            this.outDbExcel.UseVisualStyleBackColor = true;
+            this.outDbExcel.Click += new System.EventHandler(this.outDbExcel_Click);
             //
             // ColTxt
             //
@@ -174,13 +186,14 @@
             this.tabPage2.Location = new System.Drawing.Point(8, 51);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1364, 792);
+            this.tabPage2.Size = new System.Drawing.Size(1365, 802);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Excel";
             this.tabPage2.UseVisualStyleBackColor = true;
             //
             // outExcel
             //
+            this.outExcel.Enabled = false;
             this.outExcel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.outExcel.Location = new System.Drawing.Point(374, 80);
             this.outExcel.Name = "outExcel";
@@ -188,7 +201,6 @@
             this.outExcel.TabIndex = 5;
             this.outExcel.Text = "Excel出力";
             this.outExcel.UseVisualStyleBackColor = true;
-            this.outExcel.Visible = false;
             this.outExcel.Click += new System.EventHandler(this.outExcel_Click);
             //
             // dgv2
@@ -200,14 +212,15 @@
             this.dgv2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgv2.EnableHeadersVisualStyles = false;
-            this.dgv2.Location = new System.Drawing.Point(20, 132);
+            this.dgv2.Location = new System.Drawing.Point(3, 143);
             this.dgv2.Name = "dgv2";
             this.dgv2.ReadOnly = true;
             this.dgv2.RowHeadersVisible = false;
             this.dgv2.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgv2.RowTemplate.Height = 33;
-            this.dgv2.Size = new System.Drawing.Size(1318, 656);
+            this.dgv2.Size = new System.Drawing.Size(1359, 656);
             this.dgv2.TabIndex = 6;
             //
             // label1
@@ -228,6 +241,7 @@
             //
             // sheet
             //
+            this.sheet.Enabled = false;
             this.sheet.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.sheet.Location = new System.Drawing.Point(197, 80);
             this.sheet.Name = "sheet";
@@ -235,7 +249,6 @@
             this.sheet.TabIndex = 4;
             this.sheet.Text = "シート取得";
             this.sheet.UseVisualStyleBackColor = true;
-            this.sheet.Visible = false;
             this.sheet.Click += new System.EventHandler(this.sheet_Click);
             //
             // fd
@@ -261,6 +274,7 @@
             this.Tab.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -286,6 +300,7 @@
         private System.Windows.Forms.TextBox TblTxt;
         private System.Windows.Forms.Button outDbExcel;
         private System.Windows.Forms.DataGridView dgv1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

@@ -46,7 +46,7 @@ namespace Tools
                     }
                     else
                     {
-                        sheet.Visible = true;
+                        sheet.Enabled = true;
                     }
                 }
                 else
@@ -97,7 +97,8 @@ namespace Tools
                         dt.Rows.Add(rows.ToArray());
                     });
                     dgv2.DataSource = dt;
-                    outExcel.Visible = true;
+                    dgv2.Columns[1].Frozen = true;
+                    outExcel.Enabled = true;
                 }
                 else
                 {
@@ -169,6 +170,22 @@ namespace Tools
                     var da = new OracleDataAdapter(cmd);
                     dbDt = new DataTable();
                     da.Fill(dbDt);
+                    var tables = "'" + string.Join("','", dbDt.AsEnumerable().Select(x => x.Field<string>("TBL_PHYSICAL_NAME")).ToArray().Distinct()) + "'";
+                    sql = "SELECT COLS.TABLE_NAME AS TBL_PHYSICAL_NAME, COLS.COLUMN_NAME AS COL_PHYSICAL_NAME FROM ALL_CONSTRAINTS CONS, ALL_CONS_COLUMNS COLS WHERE CONS.CONSTRAINT_TYPE = 'P' AND COLS.TABLE_NAME IN(" + tables + ") AND CONS.CONSTRAINT_NAME = COLS.CONSTRAINT_NAME ORDER BY COLS.POSITION";
+                    cmd = new OracleCommand(sql, oc);
+                    da = new OracleDataAdapter(cmd);
+                    var dt = new DataTable();
+                    da.Fill(dt);
+
+                    dbDt.Columns.Add("PK", typeof(string));
+                    dbDt.Columns["PK"].SetOrdinal(4);
+                    dt.AsEnumerable().ToList().ForEach(
+                        x =>
+                        {
+                            dbDt.AsEnumerable().Where(y => y.Field<string>("TBL_PHYSICAL_NAME").Equals(x.Field<string>("TBL_PHYSICAL_NAME")) && y.Field<string>("COL_PHYSICAL_NAME").Equals(x.Field<string>("COL_PHYSICAL_NAME"))).FirstOrDefault().SetField<string>("PK", "●");
+                        }
+                    );
+
                     var tblTxtAutoCompList = new AutoCompleteStringCollection();
                     tblTxtAutoCompList.AddRange(dbDt.AsEnumerable().Select(x => x.Field<string>("TBL_PHYSICAL_NAME")).ToList().Union(dbDt.AsEnumerable().Select(x => x.Field<string>("TBL_LOGICAL_NAME")).ToList()).ToArray());
                     TblTxt.AutoCompleteCustomSource = tblTxtAutoCompList;
@@ -231,11 +248,12 @@ namespace Tools
                 if (TblTxt.AutoCompleteCustomSource.Contains(inputTbl))
                 {
                     dgv1.DataSource = dbDt.AsEnumerable().Where(x => x.Field<string>("TBL_PHYSICAL_NAME").ToString().Equals(inputTbl) || x.Field<string>("TBL_LOGICAL_NAME").ToString().Equals(inputTbl)).CopyToDataTable();
-                    outDbExcel.Visible = true;
+                    dgv1.Columns[1].Frozen = true;
+                    outDbExcel.Enabled = true;
                 }
                 else
                 {
-                    outDbExcel.Visible = false;
+                    outDbExcel.Enabled = false;
                     MessageBox.Show("リスト内に存在しない。");
                 }
             }
@@ -250,11 +268,11 @@ namespace Tools
                 if (ColTxt.AutoCompleteCustomSource.Contains(inputCol))
                 {
                     dgv1.DataSource = dbDt.AsEnumerable().Where(x => x.Field<string>("COL_PHYSICAL_NAME").ToString().Equals(inputCol) || x.Field<string>("COL_LOGICAL_NAME").ToString().Equals(inputCol)).CopyToDataTable();
-                    outDbExcel.Visible = true;
+                    outDbExcel.Enabled = true;
                 }
                 else
                 {
-                    outDbExcel.Visible = false;
+                    outDbExcel.Enabled = false;
                     MessageBox.Show("リスト内に存在しない。");
                 }
             }
